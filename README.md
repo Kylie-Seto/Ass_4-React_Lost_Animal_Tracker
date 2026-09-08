@@ -1,85 +1,47 @@
-README Requirements
-Your README.md must include:
+# TailBlazer - Lost Animal Reporting System
 
-A brief outline of what your application does and how it works
-Clear setup instructions, including how to configure the .env file with API keys
-Any bugs or features that are not fully implmented
-AI usage disclosure: if you used any AI-assisted code generation tools, you must disclose this in your README along with a brief reflection on how you used the tool and what you learned from it. This is not a penalty but an opportunity to demonstrate your understanding of the code you wrote.
+## About the Application
 
-npm install uuid
-npm install --save-dev @types/uuid
-bootstrap
-leaflet
-# React + TypeScript + Vite
+TailBlazer is a React-based web application designed to help communities track and recover lost pets. Built with TypeScript and Vite, it provides an interactive dashboard where users can view reported animals on a map or as a list of cards.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How it Works
 
-Currently, two official plugins are available:
+- **Interactive Map & Dashboard:** Users can view pins on a Leaflet map indicating where an animal was last seen. The dashboard allows filtering by the animal's status ("Lost" or "Found") and by species type.
+- **Submitting a Report:** Users can submit a new report by filling out a form with the pet's details.
+  - The last seen location is selected by clicking on an interactive map, which reverse-geocodes the coordinates into a human-readable address using the Nominatim API.
+  - Photos are uploaded and hosted via the ImgBB API.
+- **Data Persistence & Security:** Reports are saved to a shared JSONbin.io database. When submitting a report, users set a password which is securely hashed using SHA-256 before being stored. This password is later required to authenticate the user if they wish to update the pet's status to "Found".
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Setup Instructions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Clone the repository** to your local machine.
+2. **Install dependencies:** Open your terminal in the project directory and run:
+   ```bash
+   npm install
+   ```
+3. **Configure Environment Variables:** You must set up your API keys for the backend services to work. Create a new file in the root of the project folder named exactly `.env`.
 
-## Expanding the ESLint configuration
+   Add the following lines to your `.env` file, replacing the placeholder text with your actual API keys:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+   ```env
+   VITE_JSONBIN_KEY=your_jsonbin_master_key_here
+   VITE_BIN_ID=your_jsonbin_bin_id_here
+   VITE_IMGBB_KEY=your_imgbb_api_key_here
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   _(Note: The JSONbin variables are required for reading/writing reports, and the ImgBB variable is required for image uploading.)_
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+4. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open the provided local URL.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## AI Usage Disclosure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**UI Mockup:** Google Stitch
+**Debugging & Guidance:** I used both Claude and Google Gemini for support in debugging and also guidance regarding more complex features. For example, when a user clicks on a pin, it will highlight the respective card and vice versa. I also used AI to help guide and structure my approach to this assignemt, including the suggested file structure, as I have never worked on a project this complex.

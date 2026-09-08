@@ -16,9 +16,5 @@ export default async function Nominatim(lat: number, lng: number) {
   if (!res.ok) throw new Error(`Unable to fetch location: ${res.status}`);
   const json = await res.json();
 
-  // return name field if exists. if not, return display_name
-  // if (!json.name) {
-  //   return json.display_name || "Unknown Location";
-  // }
   return json.display_name; 
 }

@@ -1,8 +1,4 @@
-/**
- * Hashes a plaintext password using the browser's built-in Web Crypto API.
- * Returns a hex-encoded SHA-256 digest.
- * The password is NEVER stored in plaintext — only this hash is persisted.
- */
+// hash password using the browser's built-in crypto.subtle.digest("SHA-256", ...) before persisting
 export async function hashPassword(plaintext: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(plaintext);
@@ -11,10 +7,7 @@ export async function hashPassword(plaintext: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/**
- * Compares a plaintext password against a stored SHA-256 hex hash.
- * Returns true if they match.
- */
+// verify password by hashing the plaintext and comparing to stored hash
 export async function verifyPassword(
   plaintext: string,
   storedHash: string

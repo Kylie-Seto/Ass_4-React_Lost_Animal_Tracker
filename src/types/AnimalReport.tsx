@@ -15,5 +15,5 @@ export interface AnimalReport {
   address: string; // reverse-geocoded into human-readable adddress using Nominatim API (https://nominatim.openstreetmap.org) and displayed back to the user before submission
   status: ReportStatus;
   passwordHash: string; // The password must never be stored in plaintext — you must hash it using the browser's built-in crypto.subtle.digest("SHA-256", ...) before persisting
-  createdAt: string; //newdate to functoion?
+  createdAt: string; //newdate to functoion
 }

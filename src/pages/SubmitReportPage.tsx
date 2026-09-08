@@ -1,3 +1,5 @@
+// SubmitReportPage that combines leaflet map + report form and submits to jsonbin.io
+
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";

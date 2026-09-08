@@ -32,13 +32,12 @@ export function useFilters(reports: AnimalReport[]): UseFiltersReturn {
     [reports, statusFilter, typeFilter]
   );
 
-  // Map only shows Lost pins (never Found-only filter)
   const mapReports = useMemo(
     () =>
       reports.filter((r) => {
-        if (statusFilter === "Found") return false;
+        const statusMatch = statusFilter === "All" || r.status === statusFilter;
         const typeMatch = typeFilter === "All" || r.animalType === typeFilter;
-        return r.status === "Lost" && typeMatch;
+        return statusMatch && typeMatch;
       }),
     [reports, statusFilter, typeFilter]
   );

@@ -3,7 +3,7 @@ import Footer from "./components/Footer/Footer";
 import { Route, Routes, Navigate } from "react-router-dom";
 import SubmitReportPage from "./pages/SubmitReportPage";
 import ReportDetailPage from "./pages/ReportDetailPage";
-import Dashboard from "./components/Main/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       <Header />
       <main style={{ flex: 1 }}>
         <Routes>
+          {/* Home goes directly to map view */}
           <Route path="/" element={<Navigate to="/mapView" replace />} />
           <Route path="/mapView" element={<Dashboard />} />
           <Route path="/submitReport" element={<SubmitReportPage />} />

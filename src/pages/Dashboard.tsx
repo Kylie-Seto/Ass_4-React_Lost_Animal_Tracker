@@ -1,9 +1,9 @@
-import { useReports } from "../../hooks/useReports";
-import { useFilters } from "../../hooks/useFilters";
+import { useReports } from "../hooks/useReports";
+import { useFilters } from "../hooks/useFilters";
 import { useState } from "react";
-import ReportCardPanel from "./ReportCardPanel";
-import Filters from "./Filters";
-import LeafletView from "./LeafletView";
+import ReportCardPanel from "../components/Main/ReportCardPanel";
+import Filters from "../components/Main/Filters";
+import LeafletView from "../components/Main/LeafletView";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 

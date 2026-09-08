@@ -1,3 +1,5 @@
+// reads reports from JSONBIN.io and displays them on the map as pins
+
 import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -64,42 +66,33 @@ export default function LeafletView({
 
       {report.map((r) => {
         const isSelected = String(r.id) === selectedId;
-        const icon = isSelected
-          ? L.icon({
-              iconUrl:
-                "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-              iconRetinaUrl:
-                "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-              shadowUrl:
-                "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-              iconSize: [32, 52],
-              iconAnchor: [16, 52],
-              popupAnchor: [0, -52],
-            })
-          : undefined;
+        
+        // Use an object to conditionally hold the icon prop
+        const markerProps = isSelected
+          ? {
+              icon: L.icon({
+                iconUrl:
+                  "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+                iconRetinaUrl:
+                  "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+                shadowUrl:
+                  "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+                iconSize: [32, 52],
+                iconAnchor: [16, 52],
+                popupAnchor: [0, -52],
+              }),
+            }
+          : {}; // If not selected, pass an empty object instead of undefined
 
         return (
           <Marker
             key={String(r.id)}
             position={[r.lat, r.lng]}
-            icon={icon}
+            {...markerProps}
             eventHandlers={{ click: () => onSelect(String(r.id)) }}
           >
             <Popup>
               <div style={{ minWidth: "160px" }}>
-                {r.photoUrl?.thumb && (
-                  <img
-                    src={r.photoUrl.thumb}
-                    alt={r.animalName}
-                    style={{
-                      width: "100%",
-                      height: "90px",
-                      objectFit: "cover",
-                      borderRadius: "6px",
-                      marginBottom: "6px",
-                    }}
-                  />
-                )}
                 <strong>
                   {r.animalType}: {r.animalName}
                 </strong>
@@ -122,6 +115,8 @@ export default function LeafletView({
           </Marker>
         );
       })}
+
     </MapContainer>
   );
 }
+

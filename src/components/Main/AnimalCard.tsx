@@ -36,7 +36,7 @@ export default function AnimalCard({
       <Row className="align-items-center g-2">
         <Col xs="auto">
           <img
-            src={photoUrl || "/placeholder.png"}
+            src={photoUrl}
             alt={name}
             style={{
               width: "64px",
